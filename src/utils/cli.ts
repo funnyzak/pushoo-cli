@@ -17,38 +17,39 @@ import { Prompts } from '../types';
 
 // The help text for the CLI.
 const helpText = chalkTemplate`
-  {bold.cyan pushoo-cli} - A command line tool with Pushoo.js pushes multiple platform messages.
+  {bold.cyan pushoo-cli} - a command line tool with Pushoo.js pushes multiple platform messages.
 
-  {bold USAGE}
+  {bold Usage:}
 
-    {bold $} {cyan pushoo} --help
-    {bold $} {cyan pushoo} --version
-    {bold $} {cyan pushoo} -c <config-file-path> -C 'hello world'
-    {bold $} {cyan pushoo} -P wecom -K wecom_token -C 'hello world'
+      {cyan pushoo} [options]
+      {cyan pushoo} --help
+      {cyan pushoo} --version
+      {cyan pushoo} -c ./pushoo.yml -C 'hello world'
+      {cyan pushoo} -P wecom -K wecom_token -C 'hello world'
 
-    By default, {cyan pushoo} If there is no corresponding parameter, read the configuration from the local configuration file to send.
+      By default, {cyan pushoo} If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
-    The following options are available:
+  {bold Options:}
+      {bold -h, --help}                          Shows help.
 
-    {bold -h, --help}                          Shows this help message
+      {bold -d, --debug}                         Show debugging information.
 
-    {bold -d, --debug}                         Show debugging information
+      {bold -v, --version}                       Print version of pushoo-cli.
 
-    {bold -v, --version}                       Displays the current version of pushoo-cli
+      {bold -c, --config}                        Optional, Specify the configuration file path.
 
-    {bold config}                              Create configuration files to store the default configuration。
+      {bold -C, --content}                       Required, The push content of the Markdown format.
 
-    {bold -c, --config}                        Optional, Specify the configuration file path
+      {bold -P, --platforms}                     Optional, List of platform name( more: https://github.com/imaegoo/pushoo), such as: {underline wecom, dingtalk, feishu}
 
-    {bold -C, --content}                       Required, The push content of the Markdown format. If the push platform does not support MarkDown, Pushoo will automatically convert to support formats.
+      {bold -K, --tokens}                        Optional, List of token( more: https://github.com/imaegoo/pushoo), such as: {underline wecom_token, dingtalk_token, feishu_token}
 
-    {bold -P, --platforms}                     Optional, List of platform name( more: https://github.com/imaegoo/pushoo), such as: {underline wecom, dingtalk, feishu}
+      {bold -T, --title}                         Optional, message title.
 
-    {bold -K, --tokens}                        Optional, List of token( more: https://github.com/imaegoo/pushoo), such as: {underline wecom_token, dingtalk_token, feishu_token}
+      {bold -O, --options}                       Optional, For some additional configuration when pushing, Json string.
 
-    {bold -T, --title}                         Optional, message title, if the push platform does not support message title, it will be spliced in the first line of the text.
-
-    {bold -O, --options}                       Optional, For some additional configuration when pushing, Json string.
+  {bold Commands:}
+      {bold config}                              Create configuration files to store the default configuration。
 `;
 
 /**
