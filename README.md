@@ -34,37 +34,67 @@ npm i pushoo-cli -g
 ## Usage
 
 ```sh
+
 # Show help
 pushoo -h
 
-pushoo -c <config-file-path> -C 'hello world'
+# Default configuration file configuration
+pushoo config
+
+# Read the configuration from the default configuration file and push the message
+pushoo "This is the content"
+
+# Read the configuration from the specified configuration file, and push the message
+pushoo -C "This is the content"
+
+# Read the configuration from the specified configuration file, and push the message
+pushoo -c ./pushoo.yml -C "This is the content"
+
+# Specify the company's WeChat platform to designate the WeChat receiver, and push the message
+pushoo -P wecom -K wecom_token -C "This is the content"
+
+# Specify the company's WeChat platform to designate the WeChat receiver, and push the message
+pushoo -P wecom -K wecom_token -C "This is the content" -T "This is the title"
+#
 ```
+
+
+## Preview
+
+![show help](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/help.png)
+![push](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/push.png)
+
 
 ## Help
 
     By default, pushoo If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
-    The following options are available:
+    Options:
+        -h, --help                          Shows help.
 
-    -h, --help                          Shows this help message
+        -d, --debug                         Show debugging information.
 
-    -d, --debug                         Show debugging information
+        -v, --version                       Print version of pushoo-cli.
 
-    -v, --version                       Displays the current version of pushoo-cli
+        -c, --config                        Optional, Specify the configuration file path.
 
-    config                              Create configuration files to store the default configuration。
+        -C, --content                       Required, The push content of the Markdown format.
 
-    -c, --config                        Optional, Specify the configuration file path
+        -P, --platforms                     Optional, List of platform name( more: https://github.com/imaegoo/pushoo), such as: wecom, dingtalk, feishu
 
-    -C, --content                       Required, The push content of the Markdown format. If the push platform does not support MarkDown, Pushoo will automatically convert to support formats.
+        -K, --tokens                        Optional, List of token( more: https://github.com/imaegoo/pushoo), such as: wecom_token, dingtalk_token, feishu_token
 
-    -P, --platforms                     Optional, List of platform name( more: https://github.com/imaegoo/pushoo), such as: wecom, dingtalk, feishu
+        -T, --title                         Optional, message title.
 
-    -K, --tokens                        Optional, List of token( more: https://github.com/imaegoo/pushoo), such as: wecom_token, dingtalk_token, feishu_token
+        -O, --options                       Optional, For some additional configuration when pushing, Json string.
 
-    -T, --title                         Optional, message title, if the push platform does not support message title, it will be spliced in the first line of the text.
+    Commands:
+        config                              Create configuration files to store the default configuration。
 
-    -O, --options                       Optional, For some additional configuration when pushing, Json string.
+## Others
+
+- [Pushoo.js](https://github.com/imaegoo/pushoo)
+- [Pushoo GitHub Action](https://github.com/funnyzak/pushoo-action) : A GitHub Action with Pushoo.js pushes multiple platform messages.
 
 
 
