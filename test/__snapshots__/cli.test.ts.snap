@@ -9,8 +9,10 @@ exports[`utils/cli > render help text 1`] = `
       [36mpushoo[39m [options]
       [36mpushoo[39m --help
       [36mpushoo[39m --version
-      [36mpushoo[39m -c ./pushoo.yml -C 'hello world'
-      [36mpushoo[39m -P wecom -K wecom_token -C 'hello world'
+      [36mpushoo[39m \\"hello world\\"
+      [36mpushoo[39m -C \\"hello world\\"
+      [36mpushoo[39m -c ./pushoo.yml -C \\"hello world\\"
+      [36mpushoo[39m -P wecom -K wecom_token -C \\"hello world\\"
 
       By default, [36mpushoo[39m If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
