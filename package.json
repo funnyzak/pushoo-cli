@@ -36,7 +36,8 @@
     "pushoo-cli",
     "cli",
     "npm",
-    "node"
+    "push-message",
+    "pushoo"
   ],
   "engines": {
     "node": ">= 14"
