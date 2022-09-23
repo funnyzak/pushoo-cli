@@ -12,15 +12,15 @@ export declare type Path = string;
 
 // The options you can pass to the CLI.
 export declare interface Options {
-  '--help': Boolean;
-  '--debug': Boolean;
-  '--version': Boolean;
-  '--config': String;
-  '--content': String;
-  '--platforms': String;
-  '--tokens': String;
-  '--title': String;
-  '--options': String;
+  '--help': boolean;
+  '--debug': boolean;
+  '--version': boolean;
+  '--config': string;
+  '--content': string;
+  '--platforms': string;
+  '--tokens': string;
+  '--title': string;
+  '--options': string;
 }
 
 export namespace Prompts {

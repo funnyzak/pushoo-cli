@@ -1,19 +1,19 @@
 // CLI-related utility functions.
 
-import { env } from 'node:process';
-import fs from 'fs';
-import os from 'os';
-import path from 'node:path';
-import chalk from 'chalk';
-import prompt from 'prompt';
-import YAML, { parse as yamlParse, stringify as yamlStringify } from 'yaml';
-import chalkTemplate from 'chalk-template';
 import parseArgv from 'arg';
+import chalk from 'chalk';
+import chalkTemplate from 'chalk-template';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { env } from 'node:process';
+import prompt from 'prompt';
 import checkForUpdate from 'update-check';
-import { resolve } from './promise';
-import { logger } from './logger';
+import { readYamlFile, writeYamlFile } from '.';
 import type { Arguments } from '../types';
 import { Prompts } from '../types';
+import { logger } from './logger';
+import { resolve } from './promise';
 
 // The help text for the CLI.
 const helpText = chalkTemplate`
@@ -118,14 +118,20 @@ export const defaultConfigurationFilePath = path.join(
   '.pushoo.yml'
 );
 
+
+export const getConfiguration = (filepath: string) =>
+  readYamlFile<Prompts.Configuration>(filepath);
+
+
+// get default configuration json
+export const getDefaultConfiguration = () =>
+  getConfiguration(defaultConfigurationFilePath);
+
 export const configurationFileSetting = async (): Promise<void> => {
-  let _configuration: Prompts.Configuration = undefined;
-
-  if (fs.existsSync(defaultConfigurationFilePath)) {
-    _configuration = yamlParse(
-      fs.readFileSync(defaultConfigurationFilePath, 'utf8')
-    ) as Prompts.Configuration;
-
+  let _configuration = await readYamlFile<Prompts.Configuration>(
+    defaultConfigurationFilePath
+  );
+  if (_configuration) {
     logger.info(
       chalkTemplate`The following is the current configuration: \n\n{cyan ${await fs.readFileSync(
         defaultConfigurationFilePath,
@@ -162,14 +168,12 @@ export const configurationFileSetting = async (): Promise<void> => {
         default: _configuration?.tokens
       },
       title: {
-        message:
-          'Optional，Default message title.',
+        message: 'Optional，Default message title.',
         required: false,
         default: _configuration?.title
       },
       content: {
-        message:
-          'optional, Default message content.',
+        message: 'optional, Default message content.',
         required: false,
         default: _configuration?.content
       }
@@ -177,15 +181,14 @@ export const configurationFileSetting = async (): Promise<void> => {
   });
 
   if (
-    _configuration.platforms.split(',').length !==
-    _configuration.tokens.split(',').length
+    _configuration.platforms.split(/[,\s]/).length !==
+    _configuration.tokens.split(/[,\s]/).length
   ) {
     logger.error('The number of platforms and tokens must be the same');
-    return
+    return;
   }
 
-  const _yaml = YAML.stringify(_configuration);
-  await fs.writeFileSync(defaultConfigurationFilePath, _yaml, 'utf8');
+  const _yaml = await writeYamlFile(defaultConfigurationFilePath, _configuration);
 
   logger.log(
     chalkTemplate`The configuration content as follows：\n\n{cyan ${_yaml}}\nAnd configuration file has been stored：{cyan ${defaultConfigurationFilePath}}，You can modify the configuration through {cyan pushoo config}。`
