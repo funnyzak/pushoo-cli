@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-// scr/main.ts
-
 import chalkTemplate from 'chalk-template';
 import YAML from 'yaml';
 import { exit } from 'node:process';
@@ -118,9 +116,11 @@ const run = async (): Promise<void> => {
 
   logger.info(chalkTemplate`{bold pushing...}\n`);
 
-  platforms.forEach(async (platform, index) => {
+  for (let i = 0; i < platforms.length; i++) {
+    const platform = platforms[0];
+
     const _options: PushooOptions = {
-      token: tokens[index],
+      token: tokens[i],
       title: cli_options.title,
       content: cli_options.content,
       options: cli_options.options ? JSON.parse(cli_options.options) : {}
@@ -133,9 +133,9 @@ const run = async (): Promise<void> => {
 
     logger.log(
       boxen(
-        chalkTemplate`{bold platform ${index+1}/${platforms.length}:} {cyan ${platform}} push options:\n\n${YAML.stringify(
-          _options
-        )}`,
+        chalkTemplate`{bold platform ${i + 1}/${
+          platforms.length
+        }:} {cyan ${platform}} push options:\n\n${YAML.stringify(_options)}`,
         {
           padding: 1,
           borderColor: 'green',
@@ -157,10 +157,10 @@ const run = async (): Promise<void> => {
       );
     } else {
       logger.info(
-        chalkTemplate`{bold ${push_state.platform}}: {green Push successfully.)}}`
+        chalkTemplate`{bold ${push_state.platform}}: {green Push successfully.}`
       );
     }
-  });
+  }
 
   const _success_push_count = push_state_list.filter((v) => !v.error).length;
   logger.info(

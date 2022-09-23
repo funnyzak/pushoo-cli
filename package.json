@@ -4,8 +4,8 @@
   "description": "A command line tool with Pushoo.js pushes multiple platform messages.",
   "type": "module",
   "bin": {
-    "pushoo": "./build/main.js",
-    "pushoo-cli": "./build/main.js"
+    "pushoo": "./build/index.js",
+    "pushoo-cli": "./build/index.js"
   },
   "files": [
     "build/"
@@ -15,7 +15,7 @@
     "lint:code": "eslint --max-warnings 0 src/**/*.ts",
     "lint:style": "prettier --check 'src/**/*.ts'",
     "lint": "npm run lint:code && npm run lint:style",
-    "compile": "tsup ./src/main.ts",
+    "compile": "ncc build ./src/main.ts --source-map --minify --license LICENSE -o ./build",
     "dev": "watch \"npm run compile\" src",
     "prepublish": "npm run compile",
     "release": "np",
@@ -63,6 +63,7 @@
     "yaml": "2.1.1"
   },
   "devDependencies": {
+    "@vercel/ncc": "0.34.0",
     "@types/node": "18.7.6",
     "@types/prompt": "1.1.3",
     "@typescript-eslint/eslint-plugin": "5.33.1",
@@ -81,7 +82,6 @@
     "patch-package": "6.4.7",
     "prettier": "2.7.1",
     "rimraf": "^3.0.2",
-    "tsup": "6.2.2",
     "typescript": "4.7.4",
     "vitest": "0.22.0",
     "watch": "1.0.2"
@@ -106,14 +106,5 @@
     "tests": [
       "vitest --run"
     ]
-  },
-  "tsup": {
-    "target": "esnext",
-    "sourcemap": true,
-    "clean": true,
-    "format": [
-      "esm"
-    ],
-    "outDir": "./build/"
   }
 }
