@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import chalkTemplate from 'chalk-template';
-import YAML from 'yaml';
 import { exit } from 'node:process';
 import pushoo, { ChannelType, CommonOptions as PushooOptions } from 'pushoo';
+import YAML from 'yaml';
 import manifest from '../package.json';
 import * as utils from './utils';
 import {
@@ -16,7 +16,6 @@ import {
 } from './utils/cli';
 import { logger } from './utils/logger';
 import { resolve } from './utils/promise';
-import boxen from 'boxen';
 
 const run = async (): Promise<void> => {
   // Parse the options passed by the user.
@@ -26,7 +25,7 @@ const run = async (): Promise<void> => {
     exit(1);
   }
 
-  // Check for updates to the package unless the user sets the `NO_UPDATE_CHECK`
+  // Check for updates to the paØckage unless the user sets the `NO_UPDATE_CHECK`
   // variable.
   const [updateError] = await resolve(checkForUpdates(manifest));
   if (updateError) {
@@ -48,7 +47,7 @@ const run = async (): Promise<void> => {
   }
 
   const commandArray = args._;
-
+  logger.info(commandArray.join(' '));
   if (commandArray.includes('config')) {
     await configurationFileSetting();
     exit(0);
@@ -101,14 +100,18 @@ const run = async (): Promise<void> => {
       : _default_config.content;
   }
 
+  if (!cli_options.content && cli_options.content === '' && args._[0]) {
+    cli_options.content = args._[0];
+  }
+
   utils.checkRequiredAttributes(cli_options, [
     'platforms',
     'tokens',
     'content'
   ]);
 
-  const platforms = cli_options.platforms.split(/[,\s]/);
-  const tokens = cli_options.tokens.split(/[,\s]/);
+  const platforms = cli_options.platforms.split(/[,\s]/).map((p) => p.trim());
+  const tokens = cli_options.tokens.split(/[,\s]/).map((t) => t.trim());
 
   utils.checkArrayLength([platforms, tokens]);
 
@@ -117,8 +120,8 @@ const run = async (): Promise<void> => {
   logger.info(chalkTemplate`{bold pushing...}\n`);
 
   for (let i = 0; i < platforms.length; i++) {
-    const platform = platforms[0];
-
+    const platform = platforms[i];
+    // Hide string parts of the character
     const _options: PushooOptions = {
       token: tokens[i],
       title: cli_options.title,
@@ -131,17 +134,14 @@ const run = async (): Promise<void> => {
       options: _options
     };
 
+    const hide_token = tokens[i].replace(/(?<=.{4}).(?=.{4})/g, '*');
     logger.log(
-      boxen(
-        chalkTemplate`{bold platform ${i + 1}/${
-          platforms.length
-        }:} {cyan ${platform}} push options:\n\n${YAML.stringify(_options)}`,
-        {
-          padding: 1,
-          borderColor: 'green',
-          margin: 1
-        }
-      )
+      chalkTemplate`\n\n\n{bold platform ${i + 1}/${
+        platforms.length
+      }:} {cyan ${platform}} push options:\n\n${YAML.stringify({
+        ..._options,
+        token: hide_token
+      })}`
     );
 
     try {
@@ -157,7 +157,7 @@ const run = async (): Promise<void> => {
       );
     } else {
       logger.info(
-        chalkTemplate`{bold ${push_state.platform}}: {green Push successfully.}`
+        chalkTemplate`{bold ${push_state.platform}}: {green Push done.}`
       );
     }
   }

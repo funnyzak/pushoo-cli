@@ -32,7 +32,7 @@ export async function readYamlFile<T>(
 export function checkRequiredAttributes(object: any, attributes: string[]) {
   let check_result = [];
   for (const attribute of attributes) {
-    if (!object[attribute]) {
+    if (!object[attribute] || object[attribute] === null || object[attribute] === '') {
       check_result.push(attribute);
     }
   }

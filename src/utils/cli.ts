@@ -24,8 +24,10 @@ const helpText = chalkTemplate`
       {cyan pushoo} [options]
       {cyan pushoo} --help
       {cyan pushoo} --version
-      {cyan pushoo} -c ./pushoo.yml -C 'hello world'
-      {cyan pushoo} -P wecom -K wecom_token -C 'hello world'
+      {cyan pushoo} "hello world"
+      {cyan pushoo} -C "hello world"
+      {cyan pushoo} -c ./pushoo.yml -C "hello world"
+      {cyan pushoo} -P wecom -K wecom_token -C "hello world"
 
       By default, {cyan pushoo} If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
@@ -168,14 +170,14 @@ export const configurationFileSetting = async (): Promise<void> => {
         default: _configuration?.tokens
       },
       title: {
-        message: 'Optional，Default message title.',
+        message: 'Optional，Default message title',
         required: false,
-        default: _configuration?.title
+        default: undefined
       },
       content: {
-        message: 'optional, Default message content.',
+        message: 'optional, Default message content',
         required: false,
-        default: _configuration?.content
+        default: undefined
       }
     }
   });
