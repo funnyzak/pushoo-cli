@@ -25,11 +25,6 @@
 
 A command line tool with Pushoo.js pushes multiple platform messages.
 
-
-
-![show help](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/preview2.png)
-![converting](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/preview.png)
-
 ## Installation
 
 ```sh
