@@ -23,7 +23,7 @@
 [rle-image]: https://img.shields.io/github/release-date/funnyzak/pushoo-cli.svg
 [rle-url]: https://github.com/funnyzak/pushoo-cli/releases/latest
 
-A command line tool with Pushoo.js pushes multiple platform messages.
+A command line tool with [Pushoo.js](https://github.com/imaegoo/pushoo) pushes multiple platform messages.
 
 ## Installation
 
