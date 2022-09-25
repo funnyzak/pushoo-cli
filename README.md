@@ -44,16 +44,16 @@ pushoo config
 # Read the configuration from the default configuration file and push the message
 pushoo "This is the content"
 
-# Read the configuration from the specified configuration file, and push the message
+# Read the configuration from the default configuration file, and push the message
 pushoo -C "This is the content"
 
-# Read the configuration from the specified configuration file, and push the message
+# Specify the config file, and push the message
 pushoo -c ./pushoo.yml -C "This is the content"
 
-# Specify the company's WeChat platform to designate the WeChat receiver, and push the message
+# Specify the platform and token, and push the message
 pushoo -P wecom -K wecom_token -C "This is the content"
 
-# Specify the company's WeChat platform to designate the WeChat receiver, and push the message
+# Specify the platform and token, and push the message
 pushoo -P wecom -K wecom_token -C "This is the content" -T "This is the title"
 #
 ```
