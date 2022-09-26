@@ -58,12 +58,10 @@ pushoo -P wecom -K wecom_token -C "This is the content" -T "This is the title"
 #
 ```
 
-
 ## Preview
 
 ![show help](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/help.png)
 ![push](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/push.png)
-
 
 ## Help
 
