@@ -104,6 +104,12 @@ const run = async (): Promise<void> => {
     cli_options.content = args._[0];
   }
 
+  // if content is not set, show help text and exit
+  if (!cli_options.content && cli_options.content === '') {
+    logger.log(getHelpText());
+    exit(0);
+  }
+
   utils.checkRequiredAttributes(cli_options, [
     'platforms',
     'tokens',
