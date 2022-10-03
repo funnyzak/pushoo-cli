@@ -9,6 +9,7 @@ import * as utils from './utils';
 import {
   checkForUpdates,
   configurationFileSetting,
+  defaultConfigurationFilePath,
   getConfiguration,
   getDefaultConfiguration,
   getHelpText,
@@ -25,6 +26,22 @@ const run = async (): Promise<void> => {
     exit(1);
   }
 
+  let cli_options = {
+    config: args['--config'],
+    platforms: args['--platforms'],
+    tokens: args['--tokens'],
+    title: args['--title'],
+    content: args['--content'],
+    options: args['--options'],
+    debug: args['--debug']
+  };
+
+  // if debug, then set log level to debug
+  if (cli_options.debug) {
+    logger.setLevel('debug');
+  }
+  logger.debug('command options:', JSON.stringify(cli_options));
+
   // Check for updates to the paØckage unless the user sets the `NO_UPDATE_CHECK`
   // variable.
   const [updateError] = await resolve(checkForUpdates(manifest));
@@ -32,7 +49,7 @@ const run = async (): Promise<void> => {
     const suffix = args['--debug'] ? ':' : ' (use `--debug` to see full error)';
     logger.warn(`Checking for updates failed${suffix}`);
 
-    if (args['--debug']) logger.error(updateError.message);
+    logger.error(updateError.message);
   }
 
   // If the `version` or `help` arguments are passed, print the version or the
@@ -47,22 +64,18 @@ const run = async (): Promise<void> => {
   }
 
   const commandArray = args._;
-  logger.info(commandArray.join(' '));
   if (commandArray.includes('config')) {
     await configurationFileSetting();
     exit(0);
   }
 
-  let cli_options = {
-    config: args['--config'],
-    platforms: args['--platforms'],
-    tokens: args['--tokens'],
-    title: args['--title'],
-    content: args['--content'],
-    options: args['--options']
-  };
-
   const _default_config = await getDefaultConfiguration();
+
+  // log default config string
+  logger.debug(
+    `default config(${defaultConfigurationFilePath}):`,
+    JSON.stringify(_default_config)
+  );
 
   if (cli_options.config) {
     const _config = await getConfiguration(cli_options.config);
@@ -106,7 +119,7 @@ const run = async (): Promise<void> => {
 
   // if content is not set, show help text and exit
   if (!cli_options.content && cli_options.content === '') {
-    logger.log(getHelpText());
+    logger.info(getHelpText());
     exit(0);
   }
 
@@ -116,14 +129,14 @@ const run = async (): Promise<void> => {
     'content'
   ]);
 
-  const platforms = cli_options.platforms.split(/[,\s]/).map((p) => p.trim());
-  const tokens = cli_options.tokens.split(/[,\s]/).map((t) => t.trim());
+  const platforms = cli_options.platforms.split(/[,，]/).map((p) => p.trim());
+  const tokens = cli_options.tokens.split(/[,，]/).map((t) => t.trim());
 
   utils.checkArrayLength([platforms, tokens]);
 
   let push_state_list: Array<PushState> = [];
 
-  logger.info(chalkTemplate`{bold pushing...}\n`);
+  logger.log(chalkTemplate`{bold pushoo ...}`);
 
   for (let i = 0; i < platforms.length; i++) {
     const platform = platforms[i];
@@ -142,9 +155,9 @@ const run = async (): Promise<void> => {
 
     const hide_token = tokens[i].replace(/(?<=.{4}).(?=.{4})/g, '*');
     logger.log(
-      chalkTemplate`\n\n\n{bold platform ${i + 1}/${
+      chalkTemplate`\n\n{bold platform ${i + 1}/${
         platforms.length
-      }:} {cyan ${platform}} push options:\n\n${YAML.stringify({
+      }:} {cyan ${platform}} push options:\n${YAML.stringify({
         ..._options,
         token: hide_token
       })}`
@@ -158,19 +171,19 @@ const run = async (): Promise<void> => {
     push_state_list.push(push_state);
 
     if (push_state.error) {
-      logger.error(
+      logger.info(
         chalkTemplate`{bold ${push_state.platform}}: {red ${push_state.error.message}}`
       );
     } else {
-      logger.info(
+      logger.log(
         chalkTemplate`{bold ${push_state.platform}}: {green Push done.}`
       );
     }
   }
 
   const _success_push_count = push_state_list.filter((v) => !v.error).length;
-  logger.info(
-    chalkTemplate`{bold push done.} success: {green ${_success_push_count}}, failed: {red ${
+  logger.log(
+    chalkTemplate`\n{bold Pushoo done.} success: {green ${_success_push_count}}, failed: {red ${
       push_state_list.length - _success_push_count
     }}.`
   );
