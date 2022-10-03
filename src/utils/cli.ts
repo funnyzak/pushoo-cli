@@ -28,29 +28,21 @@ const helpText = chalkTemplate`
   {cyan pushoo} -c ./pushoo.yml -C "hello world"
   {cyan pushoo} -P wecom -K wecom_token -C "hello world"
 
+{bold Options:}
+  {cyan -h, --help}                          Shows help.
+  {cyan -d, --debug}                         Show debugging information.
+  {cyan -v, --version}                       Print version of pushoo-cli.
+  {cyan -c, --config}                        Optional, Specify the configuration file path.
+  {cyan -C, --content}                       Required, The push content of the Markdown format.
+  {cyan -P, --platforms}                     Optional, List of platform name( more: https://github.com/imaegoo/pushoo), such as: {underline wecom, dingtalk,feishu}.
+ {cyan -K, --tokens}                        Optional, List of token( more: https://github.com/imaegoo/pushoo), such as: {underline wecom_token, dingtalk_token,feishu_token}.
+  {cyan -T, --title}                         Optional, message title.
+  {cyan -O, --options}                       Optional, For some additional configuration when pushing, Json string.
+
   By default, {cyan pushoo} If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
-{bold Options:}
-  {bold -h, --help}                          Shows help.
-
-  {bold -d, --debug}                         Show debugging information.
-
-  {bold -v, --version}                       Print version of pushoo-cli.
-
-  {bold -c, --config}                        Optional, Specify the configuration file path.
-
-  {bold -C, --content}                       Required, The push content of the Markdown format.
-
-  {bold -P, --platforms}                     Optional, List of platform name( more: https://github.com/imaegoo/pushoo), such as: {underline wecom, dingtalk, feishu}
-
-  {bold -K, --tokens}                        Optional, List of token( more: https://github.com/imaegoo/pushoo), such as: {underline wecom_token, dingtalk_token, feishu_token}
-
-  {bold -T, --title}                         Optional, message title.
-
-  {bold -O, --options}                       Optional, For some additional configuration when pushing, Json string.
-
 {bold Commands:}
-  {bold config}                              Create configuration files to store the default configuration。
+  {cyan config}                              Create configuration files to store the default configuration。
 `;
 
 /**
@@ -133,7 +125,7 @@ export const configurationFileSetting = async (): Promise<void> => {
     defaultConfigurationFilePath
   );
   if (_configuration) {
-    logger.info(
+    logger.log(
       chalkTemplate`The following is the current configuration: \n\n{cyan ${await fs.readFileSync(
         defaultConfigurationFilePath,
         'utf8'
@@ -182,8 +174,8 @@ export const configurationFileSetting = async (): Promise<void> => {
   });
 
   if (
-    _configuration.platforms.split(/[,\s]/).length !==
-    _configuration.tokens.split(/[,\s]/).length
+    _configuration.platforms.split(/[,，]/).length !==
+    _configuration.tokens.split(/[,，]/).length
   ) {
     logger.error('The number of platforms and tokens must be the same');
     return;
