@@ -2,7 +2,6 @@
   "name": "pushoo-cli",
   "version": "0.1.0",
   "description": "A command line tool with Pushoo.js pushes multiple platform messages.",
-  "type": "module",
   "bin": {
     "pushoo": "./build/index.js",
     "pushoo-cli": "./build/index.js"
@@ -11,7 +10,7 @@
     "build/"
   ],
   "scripts": {
-    "start": "node ./build/main.js",
+    "start": "node ./build/index.js",
     "lint:code": "eslint --max-warnings 0 src/**/*.ts",
     "lint:style": "prettier --check 'src/**/*.ts'",
     "lint": "npm run lint:code && npm run lint:style",
@@ -25,7 +24,8 @@
     "test:tsc": "tsc --project tsconfig.json",
     "test:unit": "vitest run --config config/vitest.ts",
     "test:watch": "vitest watch --config config/vitest.ts",
-    "test": "npm run test:tsc && npm run test:unit"
+    "test": "npm run test:tsc && npm run test:unit",
+    "pkg": "npm run compile && pkg package.json"
   },
   "repository": {
     "type": "git",
@@ -81,6 +81,7 @@
     "np": "7.6.2",
     "npm-check-updates": "16.3.7",
     "patch-package": "6.4.7",
+    "pkg": "5.8.0",
     "prettier": "2.7.1",
     "rimraf": "^3.0.2",
     "typescript": "4.8.4",
@@ -92,6 +93,20 @@
     "contents": ".",
     "branch": "main",
     "releaseDraft": true
+  },
+  "pkg": {
+    "assets": [
+      "build/**/*.js",
+      "build/**/*.map",
+      "LICENSE",
+      "build/**/*.cjs"
+    ],
+    "targets": [
+      "node14-linux-x64",
+      "node14-macos-x64",
+      "node14-win-x64"
+    ],
+    "outputPath": "release"
   },
   "publishConfig": {
     "access": "public"
