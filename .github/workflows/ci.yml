@@ -68,7 +68,7 @@ jobs:
         body: ${{steps.build_changelog.outputs.changelog}}
         files:  |
           ${{ env.DIST_ARCHIVE_NAME }}-${{ steps.get_version.outputs.VERSION }}
-          release/**./*
+          release/**/*
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 
