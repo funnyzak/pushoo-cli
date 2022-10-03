@@ -4,12 +4,12 @@ A command line tool with [Pushoo.js](https://github.com/imaegoo/pushoo) pushes m
 
 [![Build Status][build-status-image]][build-status]
 [![license][license-image]][repository-url]
-[![Sourcegraph][sg-image]][sg-url]
 [![node](https://img.shields.io/node/v/pushoo-cli.svg)](https://nodejs.org/)
 [![NPM version][npm-image]][npm-url]
 [![Release Date][rle-image]][rle-url]
 [![npm download][download-image]][download-url]
 <!--[![GitHub repo size][repo-size-image]][repository-url]-->
+<!-- [![Sourcegraph][sg-image]][sg-url] -->
 
 [repo-size-image]: https://img.shields.io/github/repo-size/funnyzak/pushoo-cli
 [build-status-image]: https://github.com/funnyzak/pushoo-cli/actions/workflows/ci.yml/badge.svg
