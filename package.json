@@ -1,6 +1,6 @@
 {
   "name": "pushoo-cli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A command line tool with Pushoo.js pushes multiple platform messages.",
   "type": "module",
   "bin": {
