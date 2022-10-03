@@ -40,7 +40,7 @@
     "pushoo"
   ],
   "engines": {
-    "node": ">= 14"
+    "node": ">= 16"
   },
   "author": "Leon (silenceace@gmail.com)",
   "license": "Apache-2.0",
