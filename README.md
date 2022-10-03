@@ -2,8 +2,8 @@
 
 A command line tool with [Pushoo.js](https://github.com/imaegoo/pushoo) pushes multiple platform messages.
 
-[![license][license-image]][repository-url]
 [![Build Status][build-status-image]][build-status]
+[![license][license-image]][repository-url]
 [![Sourcegraph][sg-image]][sg-url]
 [![node](https://img.shields.io/node/v/pushoo-cli.svg)](https://nodejs.org/)
 [![NPM version][npm-image]][npm-url]
@@ -12,7 +12,7 @@ A command line tool with [Pushoo.js](https://github.com/imaegoo/pushoo) pushes m
 <!--[![GitHub repo size][repo-size-image]][repository-url]-->
 
 [repo-size-image]: https://img.shields.io/github/repo-size/funnyzak/pushoo-cli
-[build-status-image]: https://img.shields.io/github/workflow/status/funnyzak/pushoo-cli/CI
+[build-status-image]: https://github.com/funnyzak/pushoo-cli/actions/workflows/ci.yml/badge.svg
 [build-status]: https://github.com/funnyzak/pushoo-cli/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/pushoo-cli.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/pushoo-cli
