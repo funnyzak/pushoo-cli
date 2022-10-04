@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 jobs:
   lint-and-test:
+    name: Lint and Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,6 +29,7 @@ jobs:
       run: npm run test
 
   release:
+    name: Release
     env:
       DIST_ARCHIVE_NAME: ${{ github.event.repository.name }}-dist
     runs-on: ubuntu-latest
