@@ -25,6 +25,10 @@ A command line tool with [Pushoo.js](https://github.com/imaegoo/pushoo) pushes m
 [rle-image]: https://img.shields.io/github/release-date/funnyzak/pushoo-cli.svg
 [rle-url]: https://github.com/funnyzak/pushoo-cli/releases/latest
 
+## Prerequisite
+
+* [node >= 14.x](http://nodejs.cn/download/)
+
 ## Installation
 
 ```sh
