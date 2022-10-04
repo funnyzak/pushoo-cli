@@ -139,7 +139,7 @@ jobs:
           tokens: ${{ secrets.PUSH_TOKEN }}
           content: |
             # ${{github.repository}}:${{ steps.publish.outputs.version }} Npm Publish
-          options: '{"bark": { "url": "https://github.com/funnyzak" }}'
+          options: '{"bark": { "url": "https://www.npmjs.com/package/{{ github.event.repository.name }}" }}'
           debug: false
 
   push-release-message:
