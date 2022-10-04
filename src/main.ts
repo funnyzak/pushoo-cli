@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import chalkTemplate from 'chalk-template';
-import { exit } from 'node:process';
+import { exit } from 'process';
 import pushoo, { ChannelType, CommonOptions as PushooOptions } from 'pushoo';
 import YAML from 'yaml';
 import manifest from '../package.json';

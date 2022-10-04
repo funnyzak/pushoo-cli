@@ -28,3 +28,5 @@ test.js
 build/
 
 /release
+
+/dist

@@ -3,18 +3,18 @@
   "version": "0.1.1",
   "description": "A command line tool with Pushoo.js pushes multiple platform messages.",
   "bin": {
-    "pushoo": "./build/index.js",
-    "pushoo-cli": "./build/index.js"
+    "pushoo": "./dist/index.js",
+    "pushoo-cli": "./dist/index.js"
   },
   "files": [
-    "build/"
+    "dist/"
   ],
   "scripts": {
-    "start": "node ./build/index.js",
+    "start": "node ./dist/index.js",
     "lint:code": "eslint --max-warnings 0 src/**/*.ts",
     "lint:style": "prettier --check 'src/**/*.ts'",
     "lint": "npm run lint:code && npm run lint:style",
-    "compile": "ncc build ./src/main.ts --source-map --minify --license LICENSE -o ./build",
+    "compile": "ncc build ./src/main.ts --source-map --minify --license LICENSE -o ./dist",
     "dev": "watch \"npm run compile\" src",
     "prepublish": "npm run compile",
     "release": "np",
@@ -34,16 +34,14 @@
   "keywords": [
     "nodejs",
     "pushoo-cli",
-    "cli",
-    "npm",
     "push-message",
     "pushoo"
   ],
   "engines": {
-    "node": ">= 16"
+    "node": ">= 14"
   },
   "author": "Leon (silenceace@gmail.com)",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/funnyzak/pushoo-cli/issues"
   },
@@ -96,10 +94,10 @@
   },
   "pkg": {
     "assets": [
-      "build/**/*.js",
-      "build/**/*.map",
+      "dist/**/*.js",
+      "dist/**/*.map",
       "LICENSE",
-      "build/**/*.cjs"
+      "dist/**/*.cjs"
     ],
     "targets": [
       "node16-linux-x64",

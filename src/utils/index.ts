@@ -1,5 +1,5 @@
 import CmdExists from 'command-exists';
-import fs, { lstatSync } from 'node:fs';
+import fs, { lstatSync } from 'fs';
 import YAML, { parse as yamlParse } from 'yaml';
 import { resolve } from './promise';
 

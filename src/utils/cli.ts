@@ -3,10 +3,10 @@
 import parseArgv from 'arg';
 import chalk from 'chalk';
 import chalkTemplate from 'chalk-template';
-import fs from 'node:fs';
-import os from 'node:os';
-import path from 'node:path';
-import { env } from 'node:process';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import { env } from 'process';
 import prompt from 'prompt';
 import checkForUpdate from 'update-check';
 import { readYamlFile, writeYamlFile } from '.';
