@@ -65,7 +65,7 @@ const run = async (): Promise<void> => {
 
   const commandArray = args._;
   if (commandArray.includes('config')) {
-    await configurationFileSetting();
+    await configurationFileSetting(defaultConfigurationFilePath);
     exit(0);
   }
 

@@ -111,23 +111,24 @@ export const defaultConfigurationFilePath = path.join(
   '.pushoo.yml'
 );
 
-
-export const getConfiguration = (filepath: string) =>
-  readYamlFile<Prompts.Configuration>(filepath);
-
+export const getConfiguration = (_configuration_path: string) =>
+  readYamlFile<Prompts.Configuration>(_configuration_path);
 
 // get default configuration json
 export const getDefaultConfiguration = () =>
   getConfiguration(defaultConfigurationFilePath);
 
-export const configurationFileSetting = async (): Promise<void> => {
+export const configurationFileSetting = async (
+  _configuration_path?: string
+): Promise<void> => {
+  _configuration_path = _configuration_path ?? defaultConfigurationFilePath;
   let _configuration = await readYamlFile<Prompts.Configuration>(
-    defaultConfigurationFilePath
+    _configuration_path
   );
   if (_configuration) {
     logger.log(
-      chalkTemplate`The following is the current configuration: \n\n{cyan ${await fs.readFileSync(
-        defaultConfigurationFilePath,
+      chalkTemplate`The following is the current default configuration: \n\n{cyan ${await fs.readFileSync(
+        _configuration_path,
         'utf8'
       )}}`
     );
@@ -145,7 +146,13 @@ export const configurationFileSetting = async (): Promise<void> => {
       return;
     }
   }
+  await configurationFileCreate(_configuration_path);
+};
 
+export const configurationFileCreate = async (_configuration_path: string) => {
+  let _configuration = await readYamlFile<Prompts.Configuration>(
+    _configuration_path
+  );
   _configuration = await prompt.get<Prompts.Configuration>({
     properties: {
       platforms: {
@@ -181,9 +188,9 @@ export const configurationFileSetting = async (): Promise<void> => {
     return;
   }
 
-  const _yaml = await writeYamlFile(defaultConfigurationFilePath, _configuration);
+  const _yaml = await writeYamlFile(_configuration_path, _configuration);
 
   logger.log(
-    chalkTemplate`The configuration content as follows：\n\n{cyan ${_yaml}}\nAnd configuration file has been stored：{cyan ${defaultConfigurationFilePath}}，You can modify the configuration through {cyan pushoo config}。`
+    chalkTemplate`The configuration content as follows：\n\n{cyan ${_yaml}}\nAnd configuration file has been stored：{cyan ${_configuration_path}}，You can modify the configuration through {cyan pushoo config}。`
   );
 };
