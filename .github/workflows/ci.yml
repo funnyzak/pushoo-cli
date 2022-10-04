@@ -104,7 +104,8 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./package.json
-          tag: ${{ steps.get_version.outputs.VERSION }}
+          tag: latest
+          registry: https://registry.npmjs.org/
           access: public
           check-version: true
 
