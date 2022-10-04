@@ -81,7 +81,7 @@ jobs:
   publish-npm:
     name: Publish NPM
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
