@@ -38,12 +38,8 @@ npm i pushoo-cli -g
 ## Usage
 
 ```sh
-
 # Show help
 pushoo -h
-
-# Default configuration file configuration
-pushoo config
 
 # Read the configuration from the default configuration file and push the message
 pushoo "This is the content"
@@ -62,30 +58,41 @@ pushoo -P wecom -K wecom_token -C "This is the content" -T "This is the title"
 #
 ```
 
-## Preview
+After installing it, run `pushoo --help` without arguments to see list of options:
 
-![show help](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/help.png)
-![push](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/push.png)
+```console
+pushoo-cli - a command line tool with Pushoo.js pushes multiple platform messages.
 
-## Help
+Usage:
+  pushoo [options]
+  pushoo --help
+  pushoo --version
+  pushoo "hello world"
+  pushoo -C "hello world"
+  pushoo -c ./pushoo.yml -C "hello world"
+  pushoo -P wecom -K wecom_token -C "hello world"
 
-<pre>
 Options:
   -h, --help                          Shows help.
   -d, --debug                         Show debugging information.
   -v, --version                       Print version of pushoo-cli.
   -c, --config                        Optional, Specify the configuration file path.
   -C, --content                       Required, The push content of the Markdown format.
-  -P, --platforms                     Optional, List of platform name(more: https://github.com/imaegoo/pushoo), such as: wecom, dingtalk, feishu
-  -K, --tokens                        Optional, List of token(more: https://github.com/imaegoo/pushoo), such as: wecom_token, dingtalk_token, feishu_token
+  -P, --platforms                     Optional, List of platform name(more: https://github.com/imaegoo/pushoo), such as: wecom, dingtalk,feishu.
+  -K, --tokens                         Optional, List of token(more: https://github.com/imaegoo/pushoo), such as: wecom_token, dingtalk_token,feishu_token.
   -T, --title                         Optional, message title.
   -O, --options                       Optional, For some additional configuration when pushing, Json string.
 
   By default, pushoo If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
 Commands:
-  config                              Create configuration files to store the default configuration.
-</pre>
+  config                              Create configuration files to store the default configuration。
+```
+
+## Preview
+
+![show help](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/help.png)
+![push](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/push.png)
 
 ## Related
 
