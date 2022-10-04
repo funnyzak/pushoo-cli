@@ -34,7 +34,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [ 14.x ]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -74,6 +74,38 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 
+  publish-npm:
+    name: Publish NPM
+    runs-on: ubuntu-latest
+    needs: [Release]
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - uses: JS-DevTools/npm-publish@v1
+        id: publish
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./package.json
+          tag: ${{ steps.get_version.outputs.VERSION }}
+          access: public
+          check-version: true
+
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+              echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"
+
+      - name: Push Publish Message
+        uses: funnyzak/pushoo-action@main
+        with:
+          platforms: ifttt,bark
+          tokens: ${{ secrets.PUSH_TOKEN }}
+          content: |
+            # ${{github.repository}}:${{ steps.publish.outputs.version }} Npm Publish
+          options: '{"bark": { "url": "https://github.com/funnyzak" }}'
+          debug: false
+
   # Homebrew:
   #   name: Publish Homebrew
   #   runs-on: ubuntu-latest
@@ -109,10 +141,10 @@ jobs:
     needs: [Release]
     if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Push Result Message
+      - name: Push Release Message
         uses: funnyzak/pushoo-action@main
         with:
-          platforms: ${{ secrets.PUSH_PLATFORMS }}
+          platforms: ifttt,bark
           tokens: ${{ secrets.PUSH_TOKEN }}
           content: |
             # ${{github.repository}} Released
