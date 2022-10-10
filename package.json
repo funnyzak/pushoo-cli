@@ -65,7 +65,7 @@
     "@types/node": "18.8.4",
     "@types/prompt": "1.1.4",
     "@typescript-eslint/eslint-plugin": "5.40.0",
-    "@typescript-eslint/parser": "5.39.0",
+    "@typescript-eslint/parser": "5.40.0",
     "@vercel/ncc": "0.34.0",
     "@vitest/coverage-c8": "0.24.1",
     "eslint": "8.25.0",
