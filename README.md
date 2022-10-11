@@ -1,5 +1,7 @@
 # pushoo-cli
 
+[![NPM](https://nodei.co/npm/pushoo-cli.png?downloads=true&compact=true)](https://www.npmjs.com/package/pushoo-cli)
+
 A command line tool with [Pushoo.js](https://github.com/imaegoo/pushoo) pushes multiple platform messages.
 
 [![Build Status][build-status-image]][build-status]
