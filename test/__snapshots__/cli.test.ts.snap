@@ -20,7 +20,7 @@ exports[`utils/cli > render help text 1`] = `
   [36m-c, --config[39m                        Optional, Specify the configuration file path.
   [36m-C, --content[39m                       Required, The push content of the Markdown format.
   [36m-P, --platforms[39m                     Optional, List of platform name(more: https://github.com/imaegoo/pushoo), such as: [4mwecom, dingtalk,feishu[24m.
-  [36m-K, --tokens[39m                         Optional, List of token(more: https://github.com/imaegoo/pushoo), such as: [4mwecom_token, dingtalk_token,feishu_token[24m.
+  [36m-K, --tokens[39m                        Optional, List of token(more: https://github.com/imaegoo/pushoo), such as: [4mwecom_token, dingtalk_token,feishu_token[24m.
   [36m-T, --title[39m                         Optional, message title.
   [36m-O, --options[39m                       Optional, For some additional configuration when pushing, Json string.
 
