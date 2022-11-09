@@ -35,7 +35,7 @@ const helpText = chalkTemplate`
   {cyan -c, --config}                        Optional, Specify the configuration file path.
   {cyan -C, --content}                       Required, The push content of the Markdown format.
   {cyan -P, --platforms}                     Optional, List of platform name(more: https://github.com/imaegoo/pushoo), such as: {underline wecom, dingtalk,feishu}.
-  {cyan -K, --tokens}                         Optional, List of token(more: https://github.com/imaegoo/pushoo), such as: {underline wecom_token, dingtalk_token,feishu_token}.
+  {cyan -K, --tokens}                        Optional, List of token(more: https://github.com/imaegoo/pushoo), such as: {underline wecom_token, dingtalk_token,feishu_token}.
   {cyan -T, --title}                         Optional, message title.
   {cyan -O, --options}                       Optional, For some additional configuration when pushing, Json string.
 
