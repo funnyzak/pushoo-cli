@@ -78,7 +78,7 @@
     "lint-staged": "13.1.0",
     "np": "7.6.2",
     "npm-check-updates": "16.6.2",
-    "patch-package": "6.5.0",
+    "patch-package": "6.5.1",
     "pkg": "5.8.0",
     "prettier": "2.8.1",
     "rimraf": "^3.0.2",
