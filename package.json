@@ -1,6 +1,6 @@
 {
   "name": "pushoo-cli",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A command line tool with Pushoo.js pushes multiple platform messages.",
   "bin": {
     "pushoo": "./dist/index.js",
