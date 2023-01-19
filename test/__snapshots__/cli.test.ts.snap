@@ -13,6 +13,9 @@ exports[`utils/cli > render help text 1`] = `
   [36mpushoo[39m -c ./pushoo.yml -C \\"hello world\\"
   [36mpushoo[39m -P wecom -K wecom_token -C \\"hello world\\"
 
+[1mCommands:[22m
+  [36mconfig[39m                              Create default configuration file.
+
 [1mOptions:[22m
   [36m-h, --help[39m                          Shows help.
   [36m-d, --debug[39m                         Show debugging information.
@@ -26,7 +29,6 @@ exports[`utils/cli > render help text 1`] = `
 
   By default, [36mpushoo[39m If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
-[1mCommands:[22m
-  [36mconfig[39m                              Create configuration files to store the default configuration。
+  More information about the pushoo-cli can be found at: [36m[4mhttps://github.com/funnyzak/pushoo-cli[24m[39m, and the pushoo can be found at: [36m[4mhttps://github.com/imaegoo/pushoo[24m[39m.
 "
 `;
