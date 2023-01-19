@@ -28,6 +28,9 @@ const helpText = chalkTemplate`
   {cyan pushoo} -c ./pushoo.yml -C "hello world"
   {cyan pushoo} -P wecom -K wecom_token -C "hello world"
 
+{bold Commands:}
+  {cyan config}                              Create default configuration file.
+
 {bold Options:}
   {cyan -h, --help}                          Shows help.
   {cyan -d, --debug}                         Show debugging information.
@@ -41,8 +44,7 @@ const helpText = chalkTemplate`
 
   By default, {cyan pushoo} If there is no corresponding parameter, read the configuration from the local configuration file to send.
 
-{bold Commands:}
-  {cyan config}                              Create configuration files to store the default configuration。
+  More information about the pushoo-cli can be found at: {cyan {underline https://github.com/funnyzak/pushoo-cli}}, and the pushoo can be found at: {cyan {underline https://github.com/imaegoo/pushoo}}.
 `;
 
 /**
@@ -122,7 +124,7 @@ export const configurationFileSetting = async (
   _configuration_path?: string
 ): Promise<void> => {
   _configuration_path = _configuration_path ?? defaultConfigurationFilePath;
-  let _configuration = await readYamlFile<Prompts.Configuration>(
+  const _configuration = await readYamlFile<Prompts.Configuration>(
     _configuration_path
   );
   if (_configuration) {
