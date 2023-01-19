@@ -26,7 +26,7 @@ const run = async (): Promise<void> => {
     exit(1);
   }
 
-  let cli_options = {
+  const cliOptions = {
     config: args['--config'],
     platforms: args['--platforms'],
     tokens: args['--tokens'],
@@ -37,10 +37,10 @@ const run = async (): Promise<void> => {
   };
 
   // if debug, then set log level to debug
-  if (cli_options.debug) {
+  if (cliOptions.debug) {
     logger.setLevel('debug');
   }
-  logger.debug('command options:', JSON.stringify(cli_options));
+  logger.debug('command options:', JSON.stringify(cliOptions));
 
   // Check for updates to the paØckage unless the user sets the `NO_UPDATE_CHECK`
   // variable.
@@ -69,122 +69,118 @@ const run = async (): Promise<void> => {
     exit(0);
   }
 
-  const _default_config = await getDefaultConfiguration();
+  const defaultConfig = await getDefaultConfiguration();
 
   // log default config string
   logger.debug(
     `default config(${defaultConfigurationFilePath}):`,
-    JSON.stringify(_default_config)
+    JSON.stringify(defaultConfig)
   );
 
-  if (cli_options.config) {
-    const _config = await getConfiguration(cli_options.config);
+  if (cliOptions.config) {
+    const tmpConfig = await getConfiguration(cliOptions.config);
 
-    if (_config) {
-      cli_options.platforms = cli_options.platforms
-        ? cli_options.platforms
-        : _config.platforms;
+    if (tmpConfig) {
+      cliOptions.platforms = cliOptions.platforms
+        ? cliOptions.platforms
+        : tmpConfig.platforms;
 
-      cli_options.tokens = cli_options.tokens
-        ? cli_options.tokens
-        : _config.tokens;
+      cliOptions.tokens = cliOptions.tokens
+        ? cliOptions.tokens
+        : tmpConfig.tokens;
 
-      cli_options.title = cli_options.title ? cli_options.title : _config.title;
+      cliOptions.title = cliOptions.title ? cliOptions.title : tmpConfig.title;
 
-      cli_options.content = cli_options.content
-        ? cli_options.content
-        : _config.content;
+      cliOptions.content = cliOptions.content
+        ? cliOptions.content
+        : tmpConfig.content;
     }
-  } else if (_default_config) {
-    cli_options.platforms = cli_options.platforms
-      ? cli_options.platforms
-      : _default_config.platforms;
+  } else if (defaultConfig) {
+    cliOptions.platforms = cliOptions.platforms
+      ? cliOptions.platforms
+      : defaultConfig.platforms;
 
-    cli_options.tokens = cli_options.tokens
-      ? cli_options.tokens
-      : _default_config.tokens;
+    cliOptions.tokens = cliOptions.tokens
+      ? cliOptions.tokens
+      : defaultConfig.tokens;
 
-    cli_options.title = cli_options.title
-      ? cli_options.title
-      : _default_config.title;
+    cliOptions.title = cliOptions.title
+      ? cliOptions.title
+      : defaultConfig.title;
 
-    cli_options.content = cli_options.content
-      ? cli_options.content
-      : _default_config.content;
+    cliOptions.content = cliOptions.content
+      ? cliOptions.content
+      : defaultConfig.content;
   }
 
-  if (!cli_options.content && cli_options.content === '' && args._[0]) {
-    cli_options.content = args._[0];
+  if (!cliOptions.content && cliOptions.content === '' && args._[0]) {
+    cliOptions.content = args._[0];
   }
 
   // if content is not set, show help text and exit
-  if (!cli_options.content && cli_options.content === '') {
+  if (!cliOptions.content && cliOptions.content === '') {
     logger.info(getHelpText());
     exit(0);
   }
 
-  utils.checkRequiredAttributes(cli_options, [
-    'platforms',
-    'tokens',
-    'content'
-  ]);
+  utils.checkRequiredAttributes(cliOptions, ['platforms', 'tokens', 'content']);
 
-  const platforms = cli_options.platforms.split(/[,，]/).map((p) => p.trim());
-  const tokens = cli_options.tokens.split(/[,，]/).map((t) => t.trim());
+  const platforms = cliOptions.platforms.split(/[,，]/).map((p) => p.trim());
+  const tokens = cliOptions.tokens.split(/[,，]/).map((t) => t.trim());
 
   utils.checkArrayLength([platforms, tokens]);
 
-  let push_state_list: Array<PushState> = [];
+  const pushStateList: Array<PushState> = [];
 
   logger.log(chalkTemplate`{bold pushoo ...}`);
 
   for (let i = 0; i < platforms.length; i++) {
     const platform = platforms[i];
     // Hide string parts of the character
-    const _options: PushooOptions = {
+    const pushooOptions: PushooOptions = {
       token: tokens[i],
-      title: cli_options.title,
-      content: cli_options.content,
-      options: cli_options.options ? JSON.parse(cli_options.options) : {}
+      title: cliOptions.title,
+      content: cliOptions.content,
+      options: cliOptions.options ? JSON.parse(cliOptions.options) : {}
     };
 
-    let push_state: PushState = {
+    const pushState: PushState = {
       platform: platform as ChannelType,
-      options: _options
+      options: pushooOptions
     };
 
-    const hide_token = tokens[i].replace(/(?<=.{4}).(?=.{4})/g, '*');
+    const hideToken = tokens[i].replace(/(?<=.{4}).(?=.{4})/g, '*');
     logger.log(
       chalkTemplate`\n\n{bold platform ${i + 1}/${
         platforms.length
       }:} {cyan ${platform}} push options:\n${YAML.stringify({
-        ..._options,
-        token: hide_token
+        ...pushooOptions,
+        token: hideToken
       })}`
     );
 
     try {
-      push_state.result = await pushoo(platform as ChannelType, _options);
+      pushState.result = await pushoo(platform as ChannelType, pushooOptions);
     } catch (e) {
-      push_state.error = e;
+      pushState.error = e;
     }
-    push_state_list.push(push_state);
+    pushStateList.push(pushState);
 
-    if (push_state.error) {
+    if (pushState.error) {
       logger.info(
-        chalkTemplate`{bold ${push_state.platform}}: {red ${push_state.error.message}}`
+        chalkTemplate`{bold ${pushState.platform}}: {red ${pushState.error.message}}`
       );
     } else {
       logger.log(
-        chalkTemplate`{bold ${push_state.platform}}: {green Push done.}`
+        chalkTemplate`{bold ${pushState.platform}}: {green Push done.}`
       );
     }
   }
 
-  const _success_push_count = push_state_list.filter((v) => !v.error).length;
+  const successPushCount = pushStateList.filter((v) => !v.error).length;
   logger.log(
-    chalkTemplate`\n{bold Pushoo done.} success: {green ${_success_push_count}}, failed: {red ${
-      push_state_list.length - _success_push_count
+    chalkTemplate`\n{bold Pushoo done.} success: {green ${successPushCount}}, failed: {red ${
+      pushStateList.length - successPushCount
     }}.`
   );
 };

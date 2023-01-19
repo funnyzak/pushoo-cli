@@ -22,7 +22,6 @@ export declare interface Options {
   '--title': string;
   '--options': string;
 }
-
 export namespace Prompts {
   // Configuration file variable
   export declare interface Configuration extends prompt.Properties {

@@ -3,7 +3,8 @@
 import chalk from 'chalk';
 
 class LoggerManager {
-  level: string = 'info';
+  level = 'info';
+
   levels = ['trace', 'debug', 'info', 'warn', 'error'];
 
   constructor(level: string) {
@@ -23,11 +24,13 @@ class LoggerManager {
       console.trace(chalk.bgGray.bold(' TRACE '), ...message);
     }
   }
+
   debug(...message: string[]): void {
     if (this.shouldLog('debug')) {
       console.debug(chalk.yellowBright.bold(' DEBUG '), ...message);
     }
   }
+
   info(...message: string[]): void {
     if (this.shouldLog('info')) {
       console.info(chalk.bgMagenta.bold(' INFO '), ...message);
