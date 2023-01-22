@@ -98,7 +98,25 @@ Options:
 ![show help](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/help.png)
 ![push](https://raw.githubusercontent.com/funnyzak/pushoo-cli/main/public/assets/push.png)
 
-## Related
+## Configuration
+
+Create default configuration file, run:
+
+```sh
+pushoo config
+```
+
+or you can create a configuration file yourself, the configuration file is a yaml file, the configuration file is as follows:
+
+```yaml
+platforms: ifttt, bark
+tokens: hello-QUp#push_origin,3TuQzNFJVL7G
+title: ""
+content: ""
+
+```
+
+## Reference
 
 - [Pushoo.js](https://github.com/imaegoo/pushoo) is a push library with multiple platforms.
 - [Pushoo GitHub Action](https://github.com/funnyzak/pushoo-action) is a github action with pushoo.js pushes multiple platform messages.
