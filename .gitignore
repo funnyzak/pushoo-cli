@@ -30,3 +30,5 @@ build/
 /release
 
 /dist
+
+/test.js

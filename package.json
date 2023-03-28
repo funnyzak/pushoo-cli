@@ -1,6 +1,6 @@
 {
   "name": "pushoo-cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A command line tool with Pushoo.js pushes multiple platform messages.",
   "bin": {
     "pushoo": "./dist/index.js",
@@ -18,7 +18,7 @@
     "dev": "watch \"npm run compile\" src",
     "prepublish": "npm run compile",
     "release": "np",
-    "prepare": "husky install && patch-package && npm run compile",
+    "prepare": "if [[ $NODE_ENV != \"production\" ]]; then husky install; fi && patch-package && npm run compile",
     "npm:check": "npx npm-check-updates",
     "clean": "npx rimraf node_modules",
     "test:tsc": "tsc --project tsconfig.json",
