@@ -76,7 +76,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "husky": "8.0.3",
     "lint-staged": "13.1.0",
-    "np": "7.6.2",
+    "np": "7.6.4",
     "npm-check-updates": "16.6.2",
     "patch-package": "6.5.0",
     "pkg": "5.8.0",
