@@ -18,7 +18,7 @@
     "dev": "watch \"npm run compile\" src",
     "prepublish": "npm run compile",
     "release": "np",
-    "prepare": "husky install && patch-package && npm run compile",
+    "prepare": "if [[ $NODE_ENV != \"production\" ]]; then husky install; fi && patch-package && npm run compile",
     "npm:check": "npx npm-check-updates",
     "clean": "npx rimraf node_modules",
     "test:tsc": "tsc --project tsconfig.json",
